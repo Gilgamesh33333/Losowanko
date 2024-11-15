@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Losowanie imion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #2a9d8f;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #2a9d8f;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #21867a;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Losowanie imion</h1>
+    <p>Wpisz swoje imię, a wylosujemy cztery inne imiona!</p>
+    <input type="text" id="nameInput" placeholder="Wpisz swoje imię">
+    <button onclick="drawNames()">Losuj imiona</button>
+    <div id="result"></div>
+
+    <script>
+        const names = ["Sebastian", "Jakub", "Sandra", "Marta", "Martyna"];
+
+        function drawNames() {
+            const userName = document.getElementById('nameInput').value.trim();
+            if (!userName) {
+                alert("Proszę wpisać swoje imię.");
+                return;
+            }
+
+            const shuffledNames = names
+                .filter(name => name.toLowerCase() !== userName.toLowerCase())
+                .sort(() => 0.5 - Math.random());
+            
+            const selectedNames = shuffledNames.slice(0, 1);
+            document.getElementById('result').innerHTML = `
+                <p>Cześć ${userName}! Wylosowane imiona to:</p>
+                <ul>${selectedNames.map(name => `<li>${name}</li>`).join('')}</ul>
+            `;
+        }
+    </script>
+</body>
+</html>
